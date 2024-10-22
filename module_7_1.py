@@ -21,10 +21,18 @@ class Shop:
         return text
 
     def add(self, *products):
+        file = open(self.__file_name, 'a+')
+        file.seek(0)
         for item in products:
-            file = open(self.__file_name, 'a')
-            file.write(f'{str(item)}\n')
-            file.close()
+            text = file.read()
+            if str(item) in text:
+                print(f'Продукт {str(item)} уже есть в магазине')
+                file.seek(0)
+                continue
+            else:
+                file.write(f'{str(item)}\n')
+                file.seek(0)
+        file.close()
 
 if __name__ == '__main__':
     s1 = Shop()
